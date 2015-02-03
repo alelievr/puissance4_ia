@@ -6,7 +6,7 @@
 /*   By: gallard <gallard@student.42.fr             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/16 16:13:55 by gallard           #+#    #+#             */
-/*   Updated: 2015/02/03 16:38:59 by fdaudre-         ###   ########.fr       */
+/*   Updated: 2015/02/03 16:46:36 by fdaudre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,9 +107,10 @@ static int				recursive(t_grid *grid, t_case my_color, t_case color,
 			continue ;
 		}
 		(*grid)[row][col] = color;
-		score[col] = calc_score(grid, row, col, color) * (MAX_DEPTH - depth);
+		score[col] = calc_score(grid, row, col, color);
+		score[col] = (score[col] / 10) * (MAX_DEPTH - depth);
 		if (color != my_color)
-			score[col] = -score[col];
+			score[col] = -score[col] + 1;
 //		else
 //			score[col] += (0 + abs(col - 3));
 //printf("[%lu] -- col: %d => score: %d\n", depth, col, score[col]);
