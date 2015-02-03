@@ -6,7 +6,7 @@
 #    By: fdaudre- <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/07/15 15:13:38 by fdaudre-          #+#    #+#              #
-#    Updated: 2015/02/03 12:01:19 by fdaudre-         ###   ########.fr        #
+#    Updated: 2015/02/03 13:10:04 by fdaudre-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,8 @@ SRCDIR		=	src
 SRC			=	main_dev.c				\
 				p4_getmove_fperruch.c	\
 				p4_tool.c				\
-				p4_won.c
+				p4_won.c				\
+				calc_score.c
 
 #	Objects
 OBJDIR		=	obj

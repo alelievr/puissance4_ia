@@ -6,12 +6,14 @@
 /*   By: gallard <gallard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/09/27 16:13:55 by gallard           #+#    #+#             */
-/*   Updated: 2015/01/16 17:24:14 by gallard          ###   ########.fr       */
+/*   Updated: 2015/02/03 13:06:20 by fdaudre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUISS4_H
 # define PUISS4_H
+
+# include <unistd.h>
 
 typedef enum		e_case
 {
