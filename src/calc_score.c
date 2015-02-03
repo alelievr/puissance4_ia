@@ -6,14 +6,14 @@
 /*   By: fdaudre- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/03 13:03:28 by fdaudre-          #+#    #+#             */
-/*   Updated: 2015/02/03 15:41:47 by fdaudre-         ###   ########.fr       */
+/*   Updated: 2015/02/03 16:24:59 by fdaudre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "puiss4.h"
 
 //#if 0
-static int		calc_score_hz(t_grid *grid, int col, int row, t_case color)
+static int		calc_score_hz(t_grid *grid, int row, int col, t_case color)
 {
 	int		i;
 	int		count;
@@ -38,7 +38,7 @@ static int		calc_score_hz(t_grid *grid, int col, int row, t_case color)
 	return (count >= WIN_CNT);
 }
 
-static int		calc_score_vz(t_grid *grid, int col, int row, t_case color)
+static int		calc_score_vz(t_grid *grid, int row, int col, t_case color)
 {
 	int		i;
 	int		count;
@@ -64,7 +64,7 @@ static int		calc_score_vz(t_grid *grid, int col, int row, t_case color)
 }
 //#endif
 
-static int		calc_score_diag1(t_grid *grid, int col, int row, t_case color)
+static int		calc_score_diag1(t_grid *grid, int row, int col, t_case color)
 {
 	int		i;
 	int		count;
@@ -91,7 +91,7 @@ static int		calc_score_diag1(t_grid *grid, int col, int row, t_case color)
 	return (count >= WIN_CNT);
 }
 
-static int		calc_score_diag2(t_grid *grid, int col, int row, t_case color)
+static int		calc_score_diag2(t_grid *grid, int row, int col, t_case color)
 {
 	int		i;
 	int		count;
@@ -117,11 +117,6 @@ static int		calc_score_diag2(t_grid *grid, int col, int row, t_case color)
 	}
 	return (count >= WIN_CNT);
 }
-/*
-static int				calc_score_hz(t_grid *grid, int row, int col, t_case color)
-{
-	int					i;
-}*/
 
 int						calc_score(t_grid *grid, int row, int col, t_case color)
 {

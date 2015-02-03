@@ -6,7 +6,7 @@
 /*   By: gallard <gallard@student.42.fr             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/16 16:13:55 by gallard           #+#    #+#             */
-/*   Updated: 2015/02/03 15:45:20 by fdaudre-         ###   ########.fr       */
+/*   Updated: 2015/02/03 16:26:20 by fdaudre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,9 @@ static int				get_scoremax(int score[GRID_W], size_t depth, int is_same)
 	col = 0;
 	while (++i < GRID_W)
 	{
-//		if (!is_same ? (score[i] < max) : (score[i] > max))
-		if ((score[i] >= max) && (abs(col - 3) > abs(i - 3)))
+		if ((!is_same ? (score[i] < max) : (score[i] > max)) ||
+//		if ((score[i] > max) ||
+			((score[i] == max) && (abs(col - 3) > abs(i - 3))))
 		{
 			max = score[i];
 			col = i;
@@ -93,13 +94,13 @@ static int				recursive(t_grid *grid, t_case my_color, t_case color,
 	{
 		if ((row = get_row(grid, col)) < 0)
 		{
-			score[col] = -1000000;
+			score[col] = 1000000 * (color == my_color ? 1 : -1);
 			continue ;
 		}
 		(*grid)[row][col] = color;
 		score[col] = calc_score(grid, row, col, color) * (MAX_DEPTH - depth);
-//		if (color != my_color)
-//			score[col] = -score[col];
+		if (color != my_color)
+			score[col] = -score[col];
 //		else
 //			score[col] += (0 + abs(col - 3));
 //printf("[%lu] -- col: %d => score: %d\n", depth, col, score[col]);
