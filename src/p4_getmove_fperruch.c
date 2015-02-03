@@ -6,11 +6,12 @@
 /*   By: gallard <gallard@student.42.fr             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/16 16:13:55 by gallard           #+#    #+#             */
-/*   Updated: 2015/02/03 12:02:25 by fdaudre-         ###   ########.fr       */
+/*   Updated: 2015/02/03 13:02:37 by fdaudre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "puiss4.h"
+#define MAX_DEPTH		3
 
 /*
 ** ------------------------------------------------------------------
@@ -41,30 +42,70 @@
 **		you and your opponent (remember your grid is a copy)
 */
 
-int		p4_getmove_fperruch(t_grid *grid, t_case color, int turn_count)
+int						calc_score(t_grid *grid, int row, int col, t_case color);
+
+static int				get_scoremax(int score[GRID_W], size_t depth)
 {
-	int		move;
+	int					max;
+	int					i;
+	int					col;
 
-	(void)grid;
-	(void)color;
-	(void)turn_count;
-	move = 0;
-
-	// TODO: find out what's the best move toward winning the game
-
-	return (move);
+	i = -1
+	max = -1;
+	col = 0;
+	while (++i < GRID_W)
+	{
+		if (score[i] > max)
+		{
+			max = score[i];
+			col = i;
+		}
+	}
+	return (!depth ? col : max);
 }
 
-int		p4_getmove_yourlogin(t_grid *grid, t_case color, int turn_count)
+static int				get_row(t_grid *grid, int col)
 {
-	int		move;
+	int					row;
 
-	(void)grid;
-	(void)color;
-	(void)turn_count;
-	move = 0;
+	row = GRID_H;
+	while (--row > -1)
+	{
+		if (grid[row][col] == VIDE)
+			break ;
+	}
+	return (row);
+}
 
-	// TODO: find out what's the best move toward winning the game
+static int				recursive(t_grid *grid, t_case my_color, t_case color,
+							size_t depth)
+{
+	int					col;
+	int					row;
+	int					score[GRID_W];
 
+	if (depth >= MAX_DEPTH)
+		return (0);
+	col = -1;
+	while (++col < GRID_W)
+	{
+		if ((row = get_row(grid, col)) < 0)
+			continue ;
+		grid[row][col] = color;
+		score[col] = calc_score(grid, row, col, color);
+		score[col] += recursive(grid, my_color,
+				(color == ROUGE ? JAUNE : ROUGE), depth + 1);
+		grid[row][col] = VIDE;
+	}
+	return (get_scoremax(score));
+}
+
+int						p4_getmove_fperruch(t_grid *grid, t_case color,
+							int turn_count)
+{
+	int					move;
+
+	move = recursive(grid, color, color, 0);
 	return (move);
+	(void)turn_count;
 }
