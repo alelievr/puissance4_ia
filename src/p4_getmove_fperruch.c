@@ -6,12 +6,12 @@
 /*   By: gallard <gallard@student.42.fr             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/16 16:13:55 by gallard           #+#    #+#             */
-/*   Updated: 2015/02/03 13:15:22 by fdaudre-         ###   ########.fr       */
+/*   Updated: 2015/02/03 15:45:20 by fdaudre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "puiss4.h"
-#define MAX_DEPTH		3
+#define MAX_DEPTH		6
 
 /*
 ** ------------------------------------------------------------------
@@ -44,24 +44,26 @@
 
 int						calc_score(t_grid *grid, int row, int col, t_case color);
 
-static int				get_scoremax(int score[GRID_W], size_t depth)
+static int				get_scoremax(int score[GRID_W], size_t depth, int is_same)
 {
 	int					max;
 	int					i;
 	int					col;
 
-	i = -1;
-	max = -1;
+	i = 0;
+	max = score[0];
 	col = 0;
 	while (++i < GRID_W)
 	{
-		if (score[i] > max)
+//		if (!is_same ? (score[i] < max) : (score[i] > max))
+		if ((score[i] >= max) && (abs(col - 3) > abs(i - 3)))
 		{
 			max = score[i];
 			col = i;
 		}
 	}
 	return (!depth ? col : max);
+	(void)is_same;
 }
 
 static int				get_row(t_grid *grid, int col)
@@ -77,7 +79,6 @@ static int				get_row(t_grid *grid, int col)
 	return (row);
 }
 
-#include <stdio.h>
 static int				recursive(t_grid *grid, t_case my_color, t_case color,
 							size_t depth)
 {
@@ -85,22 +86,36 @@ static int				recursive(t_grid *grid, t_case my_color, t_case color,
 	int					row;
 	int					score[GRID_W];
 
-printf("tilt\n");
 	if (depth >= MAX_DEPTH)
 		return (0);
 	col = -1;
 	while (++col < GRID_W)
 	{
-//printf("lol\n");
 		if ((row = get_row(grid, col)) < 0)
+		{
+			score[col] = -1000000;
 			continue ;
+		}
 		(*grid)[row][col] = color;
-		score[col] = calc_score(grid, row, col, color);
+		score[col] = calc_score(grid, row, col, color) * (MAX_DEPTH - depth);
+//		if (color != my_color)
+//			score[col] = -score[col];
+//		else
+//			score[col] += (0 + abs(col - 3));
+//printf("[%lu] -- col: %d => score: %d\n", depth, col, score[col]);
+//		if ((score[col] > 9) && (!depth))
+//			return (col);
+//	p4_disp(grid);
+//	printf("SCORE: %d\n", score[col]);
 		score[col] += recursive(grid, my_color,
 				(color == ROUGE ? JAUNE : ROUGE), depth + 1);
 		(*grid)[row][col] = VIDE;
 	}
-	return (get_scoremax(score, depth));
+//printf("depth: %lu -- %d, %d, %d, %d, %d, %d, %d\n", depth, score[0], score[1], score[2], score[3], score[4], score[5], score[6]);
+	int max = (get_scoremax(score, depth, color == my_color));
+//printf("~~ max: %d\n", max);
+	return max;
+	return (get_scoremax(score, depth, color == my_color));
 }
 
 int						p4_getmove_fperruch(t_grid *grid, t_case color,
@@ -108,6 +123,7 @@ int						p4_getmove_fperruch(t_grid *grid, t_case color,
 {
 	int					move;
 
+	
 	move = recursive(grid, color, color, 0);
 	return (move);
 	(void)turn_count;

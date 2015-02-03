@@ -6,7 +6,7 @@
 /*   By: gallard <gallard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/09/27 16:13:55 by gallard           #+#    #+#             */
-/*   Updated: 2015/01/16 17:24:14 by gallard          ###   ########.fr       */
+/*   Updated: 2015/02/03 15:03:23 by fdaudre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ void	p4_disp(t_grid *grid)
 {
 	int		i;
 	int		j;
+	char	c;
 
 	i = 0;
 	while (i < GRID_H)
@@ -95,11 +96,14 @@ void	p4_disp(t_grid *grid)
 		j = 0;
 		while (j < GRID_W)
 		{
+			c = '#';
 			if ((*grid)[i][j] == JAUNE)
 				printf("\x1b[93;1m");
 			else if ((*grid)[i][j] == ROUGE)
 				printf("\x1b[91;1m");
-			printf("%c", 'O');
+			else
+				c = '.';
+			printf("%c ", c);//L'⬤');
 			printf("\x1b[0m");
 			j++;
 		}
