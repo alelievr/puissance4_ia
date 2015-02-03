@@ -6,12 +6,11 @@
 /*   By: gallard <gallard@student.42.fr             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/16 16:13:55 by gallard           #+#    #+#             */
-/*   Updated: 2015/02/03 16:46:36 by fdaudre-         ###   ########.fr       */
+/*   Updated: 2015/02/03 17:12:42 by fdaudre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "puiss4.h"
-#define MAX_DEPTH		8
 
 /*
 ** ------------------------------------------------------------------
@@ -110,7 +109,7 @@ static int				recursive(t_grid *grid, t_case my_color, t_case color,
 		score[col] = calc_score(grid, row, col, color);
 		score[col] = (score[col] / 10) * (MAX_DEPTH - depth);
 		if (color != my_color)
-			score[col] = -score[col] + 1;
+			score[col] = -score[col] - 1;
 //		else
 //			score[col] += (0 + abs(col - 3));
 //printf("[%lu] -- col: %d => score: %d\n", depth, col, score[col]);
@@ -118,8 +117,9 @@ static int				recursive(t_grid *grid, t_case my_color, t_case color,
 //			return (col);
 //	p4_disp(grid);
 //	printf("SCORE: %d\n", score[col]);
-		score[col] += recursive(grid, my_color,
-				(color == ROUGE ? JAUNE : ROUGE), depth + 1);
+		if (score[col] >= 0)
+			score[col] += recursive(grid, my_color,
+					(color == ROUGE ? JAUNE : ROUGE), depth + 1);
 		(*grid)[row][col] = VIDE;
 	}
 //printf("depth: %lu -- %d, %d, %d, %d, %d, %d, %d\n", depth, score[0], score[1], score[2], score[3], score[4], score[5], score[6]);

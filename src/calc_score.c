@@ -6,7 +6,7 @@
 /*   By: fdaudre- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/03 13:03:28 by fdaudre-          #+#    #+#             */
-/*   Updated: 2015/02/03 16:24:59 by fdaudre-         ###   ########.fr       */
+/*   Updated: 2015/02/03 17:05:13 by fdaudre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,6 @@ int						calc_score(t_grid *grid, int row, int col, t_case color)
 			calc_score_vz(grid, row, col, color) +
 			calc_score_diag1(grid, row, col, color) +
 			calc_score_diag2(grid, row, col, color);
-	score *= 10;
+	score *= (MAX_DEPTH + 2);
 	return (score);
 }
