@@ -6,12 +6,12 @@
 /*   By: gallard <gallard@student.42.fr             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/16 16:13:55 by gallard           #+#    #+#             */
-/*   Updated: 2015/02/03 16:26:20 by fdaudre-         ###   ########.fr       */
+/*   Updated: 2015/02/03 16:30:08 by fdaudre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "puiss4.h"
-#define MAX_DEPTH		6
+#define MAX_DEPTH		8
 
 /*
 ** ------------------------------------------------------------------
@@ -94,7 +94,7 @@ static int				recursive(t_grid *grid, t_case my_color, t_case color,
 	{
 		if ((row = get_row(grid, col)) < 0)
 		{
-			score[col] = 1000000 * (color == my_color ? 1 : -1);
+			score[col] = -1000000;// * (color == my_color ? 1 : -1);
 			continue ;
 		}
 		(*grid)[row][col] = color;
