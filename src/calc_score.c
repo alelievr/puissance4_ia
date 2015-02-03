@@ -6,13 +6,12 @@
 /*   By: fdaudre- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/03 13:03:28 by fdaudre-          #+#    #+#             */
-/*   Updated: 2015/02/03 17:05:13 by fdaudre-         ###   ########.fr       */
+/*   Updated: 2015/02/03 17:23:55 by fdaudre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "puiss4.h"
 
-//#if 0
 static int		calc_score_hz(t_grid *grid, int row, int col, t_case color)
 {
 	int		i;
@@ -44,14 +43,6 @@ static int		calc_score_vz(t_grid *grid, int row, int col, t_case color)
 	int		count;
 
 	count = 1;
-/*	i = row;
-	while (--i >= 0)
-	{
-		if ((*grid)[i][col] == color)
-			count++;
-		else
-			break;
-	}*/
 	i = row;
 	while (++i < GRID_H)
 	{
@@ -62,7 +53,6 @@ static int		calc_score_vz(t_grid *grid, int row, int col, t_case color)
 	}
 	return (count >= WIN_CNT);
 }
-//#endif
 
 static int		calc_score_diag1(t_grid *grid, int row, int col, t_case color)
 {

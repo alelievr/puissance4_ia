@@ -6,7 +6,7 @@
 /*   By: gallard <gallard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/09/27 16:13:55 by gallard           #+#    #+#             */
-/*   Updated: 2015/02/03 16:51:13 by fdaudre-         ###   ########.fr       */
+/*   Updated: 2015/02/03 17:16:21 by fdaudre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ int		main(void)
 	{
 		srand(time(0));
 		// Block: Human
-		printf("0 1 2 3 4 5 6\nJouer [1-7]: ");
-		scanf("%d", &move);
+	//	printf("0 1 2 3 4 5 6\nJouer [1-7]: ");
+	//	scanf("%d", &move);
 //		--move;
-	//	puts("Au JAUNE (votre IA):");
-	//	move = p4_getmove_fperruch(&grid, ROUGE, i);
+		puts("Au JAUNE (votre IA):");
+		move = p4_getmove_fperruch(&grid, ROUGE, i);
 		p4_play(&grid, move, JAUNE);
 		p4_disp(&grid);
 		if (p4_won(&grid, move))

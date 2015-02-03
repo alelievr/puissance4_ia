@@ -6,18 +6,12 @@
 /*   By: gallard <gallard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/09/27 16:13:55 by gallard           #+#    #+#             */
-/*   Updated: 2015/02/03 17:06:00 by fdaudre-         ###   ########.fr       */
+/*   Updated: 2015/02/03 17:29:22 by fdaudre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUISS4_H
 # define PUISS4_H
-
-# include <unistd.h>
-# include <stdio.h>
-# include <stdlib.h>
-
-# define MAX_DEPTH		8
 
 typedef enum		e_case
 {
