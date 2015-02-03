@@ -6,7 +6,7 @@
 /*   By: gallard <gallard@student.42.fr             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/16 16:13:55 by gallard           #+#    #+#             */
-/*   Updated: 2015/02/03 16:30:08 by fdaudre-         ###   ########.fr       */
+/*   Updated: 2015/02/03 16:38:59 by fdaudre-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,15 @@
 
 int						calc_score(t_grid *grid, int row, int col, t_case color);
 
+float       ft_rand(int x)
+{
+    int n = x * 57;
+    n = (n << 13) ^ n;
+    int t = (n * (n * n * 15731 + 789221) + 1376312589) & 0x7fffffff;
+    return (1.0 - (double)t * 0.931322574615478515625e-9);
+}
+
+
 static int				get_scoremax(int score[GRID_W], size_t depth, int is_same)
 {
 	int					max;
@@ -57,7 +66,7 @@ static int				get_scoremax(int score[GRID_W], size_t depth, int is_same)
 	{
 		if ((!is_same ? (score[i] < max) : (score[i] > max)) ||
 //		if ((score[i] > max) ||
-			((score[i] == max) && (abs(col - 3) > abs(i - 3))))
+			((score[i] == max) && (ft_rand(rand()) < 0)))//(abs(col - 3) > abs(i - 3))))
 		{
 			max = score[i];
 			col = i;
@@ -94,7 +103,7 @@ static int				recursive(t_grid *grid, t_case my_color, t_case color,
 	{
 		if ((row = get_row(grid, col)) < 0)
 		{
-			score[col] = -1000000;// * (color == my_color ? 1 : -1);
+			score[col] = -1000000 * (color == my_color ? 1 : -1);
 			continue ;
 		}
 		(*grid)[row][col] = color;
